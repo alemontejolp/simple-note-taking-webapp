@@ -10,7 +10,13 @@ let count
 
 function get_users() {
   //it can throw an exeption
-  let users = fs.readFileSync(datafiles.users, {encoding:'utf8'})
+  let users
+  try {
+    users = fs.readFileSync(datafiles.users, {encoding:'utf8'})
+  } catch(err) {
+    fs.writeFileSync(datafiles.users, "", { encoding: 'utf8' })
+    users = ""
+  }
   users = users.split('\n')
   users.pop()
   return users;

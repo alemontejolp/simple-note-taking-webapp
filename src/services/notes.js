@@ -12,7 +12,13 @@ let count
  //text (in content) with new lines is introduced.
 function get_notes() {
   //it can throw an exeption
-  let notes = fs.readFileSync(datafiles.notes, {encoding:'utf8'})
+  let notes
+  try {
+    notes = fs.readFileSync(datafiles.notes, {encoding:'utf8'})
+  } catch(err) {
+    fs.writeFileSync(datafiles.notes, "", { encoding: 'utf8' })
+    notes = ""
+  }
   notes = notes.split('\n')
   notes.pop()
   return notes;
