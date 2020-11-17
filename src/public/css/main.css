@@ -1,0 +1,94 @@
+@font-face {font-family:'Roboto';
+  src:url('../fonts/Roboto/Roboto-Light.ttf') format("truetype");}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Roboto, Arial, Helvetica, sans-serif
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.mid-box {
+  width: 49%;
+  /*background-color: turquoise;*/
+  display: inline-block;
+}
+
+.title-bar {
+  background-color: #9E07F0;
+  padding: 1%;
+  box-sizing: border-box;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.w-60p {
+  width: 60%;
+  margin: auto;
+}
+
+.m-2p {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.bg-card {
+  background-color: #E8E8E8;
+  width: 100%;
+  padding: 5%;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.label-separation {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.btn {
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: none;
+  width: 120px;
+  background-color: #E7E7E7;
+}
+
+.btn-warning {
+  background-color: #F0A81F;
+}
+
+.btn-danger {
+  background-color: #F805A1;
+  color: #fff;
+}
+
+.btn-purple {
+  background-color: #7215A3;
+  color: #fff;
+}
+
+.btn-green {
+  background-color: #0DA356;
+  color: #fff;
+}
+
+textarea {
+  width: 100%;
+  /*border-radius: 5px;*/
+  box-shadow: none;
+}

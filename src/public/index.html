@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <title>Simple note taking app</title>
+</head>
+<body>
+  <div class="title-bar">
+    <div class="mid-box">
+      <h1>Note Taking App</h1>
+    </div>
+    <div class="mid-box text-right">
+      <button class="btn btn-warning" id="signoff-btn">Sign Off</button>
+    </div>
+  </div>
+  <!--Login-->
+  <div id ="login" class="w-60p m-2p">
+    <p class="text-center m-2p">Welcome</p>
+    <form class="bg-card" id="signin-form">
+      <div>
+        <label class="label-separation">Username</label>
+        <input id="username" class="full-width">
+      </div>
+      <div>
+        <label class="label-separation">Password</label>
+        <input id="passwd" class="full-width" type="password">
+      </div>
+      <div class="label-separation text-right">
+        <button class="btn btn-warning" type="button" id="signup-btn">Sign Up</button>
+        <button class="btn btn-danger" type="submit">Sign In</button>
+      </div>
+    </form>
+  </div>
+  
+  <div id="notes-section" class="m-2p">
+
+  <div class="label-separation text-center full-width">
+    <button class="btn btn-green" id="all-notes-btn">All notes</button>
+    <button class="btn" id="write-note-btn">Write note</button>
+  </div>
+  <!--Notes view-->
+  <div id="notes-view" class="w-60p m-2p">
+    <!--
+    <div class="bg-card">
+      <p>hola mundo</p>
+      <div class="label-separation text-right">
+        <button class="btn btn-danger">Delete</button>
+        <button class="btn btn-purple">Edit</button>
+      </div>
+    </div>
+    -->
+  </div>
+  <!--Create note view-->
+  <div id="note-create-view" class="w-60p m-2p">
+    <form class="bg-card">
+      <textarea id="note-content">hello</textarea>
+      <div class="label-separation text-right">
+        <button class="btn btn-purple" id="save-note-btn">Save</button>
+      </div>
+    </form>
+  </div>
+  
+  </div>
+  <script src="js/api.js"></script>
+  <script src="js/note_builder.js"></script>
+  <script src="js/views.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
