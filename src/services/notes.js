@@ -1,7 +1,7 @@
 const datafiles = require('../../etc/datafiles')
 const fs = require('fs')
 
-let count
+//let count
 
 /**
  * notesfile format: 
@@ -54,6 +54,7 @@ function write_note_quant(n) {
 }
 
 function create_note(note) {
+  let count = read_note_quant()
   if(note.id) {
     let record = `${note.id}|${note.user_id}|${note.content}\n`
     fs.appendFileSync(datafiles.notes, record, {encoding: 'utf8'})
@@ -96,7 +97,7 @@ function update_note(note, user_id) {
   return (deleted && id == note.id)
 }
 
-count = read_note_quant()
+//count = read_note_quant()
 
 module.exports = {
   create_note,

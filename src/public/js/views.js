@@ -86,7 +86,7 @@ let views = {
   _router: {
     goto_login: function() {
       views.create_note.hide()
-      views.notes.show()
+      views.notes.hide()
       views.notes_section.hide()
       views.login.show()
       views.signoff_btn.hide()
