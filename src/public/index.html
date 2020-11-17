@@ -41,21 +41,14 @@
     <button class="btn" id="write-note-btn">Write note</button>
   </div>
   <!--Notes view-->
-  <div id="notes-view" class="w-60p m-2p">
-    <!--
-    <div class="bg-card">
-      <p>hola mundo</p>
-      <div class="label-separation text-right">
-        <button class="btn btn-danger">Delete</button>
-        <button class="btn btn-purple">Edit</button>
-      </div>
-    </div>
-    -->
-  </div>
+  <div id="notes-view" class="w-60p m-2p"></div>
   <!--Create note view-->
   <div id="note-create-view" class="w-60p m-2p">
     <form class="bg-card">
-      <textarea id="note-content">hello</textarea>
+      <textarea 
+        id="note-content" 
+        placeholder="Write here, but do not press enter, please. :)"
+        class="multiline-input"></textarea>
       <div class="label-separation text-right">
         <button class="btn btn-purple" id="save-note-btn">Save</button>
       </div>

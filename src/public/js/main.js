@@ -1,134 +1,86 @@
 let signin_form = document.getElementById('signin-form')
 let signup_form = document.getElementById('signup-btn')
-let all_notes_btn = document.getElementById('all-notes-btn')
-let write_note_btn = document.getElementById('write-note-btn')
-let signoff_btn = document.getElementById('signoff-btn')
-let save_note_btn = document.getElementById('save-note-btn')
 let note_content = document.getElementById('note-content')
 
-//utils
+//Utils
 function get_user_credentials() {
-  let user = {
-    username: document.getElementById('username').value,
-    passwd: document.getElementById('passwd').value
+  return {
+    username: signin_form.elements.username.value,
+    passwd: signin_form.elements.passwd.value
   }
-  return user
 }
 
-function edit_note(id, content) {
-  all_notes_btn.classList.remove('btn-green')
-  write_note_btn.classList.add('btn-green')
+//Boot.
+window.onload = function() {
+  views._router.goto_login()
 
-  views.login.hide()
-  views.notes.hide()
-  views.create_note.show()
-
-  note_content.value = content
-  sessionStorage.setItem('edit_id', id)
-}
-
-function delete_note(id) {
-  NoteController.delete_note({id}).then(function(data) {
-    views.notes.show()
-  })
-}
-
-(function() {
-  //views.login.hide()
-  views.notes_section.hide()
-  views.notes.hide()
-  views.create_note.hide()
-  views.signoff_btn.hide()
-
+  //Go to notes list view after signing in.
   signin_form.addEventListener('submit', function(e) {
     e.preventDefault()
     let user = get_user_credentials()
-    //signin
     UserController.signin(user).then(function(data) {
       sessionStorage.setItem('token', data.session_token)
-      //ok
-      views.login.hide()
-      views.notes_section.show()
-      views.notes.show()
-      views.signoff_btn.show()
+      views._router.goto_note_list()
     }).catch(function(err) {
+      console.log(err)
       alert('Probably your credentials are wrong')
     })
   })
 
+  //Go to notes list view after signing up.
   signup_form.addEventListener('click', function(e) {
     let user = get_user_credentials()
-    //signup
     UserController.create(user).then(function(data) {
       sessionStorage.setItem('token', data.session_token)
-      //ok
-      console.log(data)
-      views.login.hide()
-      views.notes_section.show()
-      views.notes.show()
-      views.signoff_btn.show()
+      views._router.goto_note_list()
     }).catch(function(err) {
+      alert('This isn\'t good. :\'v')
       console.log(err)
     })
   })
 
-  all_notes_btn.addEventListener('click', function(e) {
-    write_note_btn.classList.remove('btn-green')
-    all_notes_btn.classList.add('btn-green')
-    
-    views.login.hide()
-    views.create_note.hide()
-    views.notes.show()
+  //Go to notes list view if all-notes button is pressed.
+  views.notes_section.buttons.all_notes
+    .addEventListener('click', function(e) {
+      views._router.goto_note_list()
   })
 
-  write_note_btn.addEventListener('click', function(e) {
-    all_notes_btn.classList.remove('btn-green')
-    write_note_btn.classList.add('btn-green')
-
-    views.login.hide()
-    views.notes.hide()
-    views.create_note.show()
+  //Go to write note view if notes-section button is pressed.
+  views.notes_section.buttons.write_note
+    .addEventListener('click', function(e) {
+      views._router.goto_write_note()
   })
 
-  signoff_btn.addEventListener('click', function(e) {
-    views.create_note.hide()
-    views.notes.show()
-    views.notes_section.hide()
-    views.login.show()
-    views.signoff_btn.hide()
-
-    document.getElementById('username').value = ''
-    document.getElementById('passwd').value = ''
+  //Sign off and go to login view if sign off button is pressed.
+  views.signoff_btn.element.addEventListener('click', function(e) {
+    signin_form.elements.username.value = ''
+    signin_form.elements.passwd.value = ''
+    views._router.goto_login()
   })
 
-  save_note_btn.addEventListener('click', function(e) {
-    e.preventDefault()
-    let content = note_content.value
-    let note = {content}
+  //Create the note, put it in the list and go to the list view
+  //if save note button is pressed.
+  views.create_note.buttons.save_note
+    .addEventListener('click', function(e) {
+      e.preventDefault()
+      let note = { content: note_content.value }
 
-    let id = sessionStorage.getItem('edit_id')
-    if(id) {
-      note.id = id
-      sessionStorage.removeItem('edit_id')
+      let id = sessionStorage.getItem('edit_id')
+      if(id) {
+        note.id = id
+        sessionStorage.removeItem('edit_id')
 
-      NoteController.update_note(note).then(function(data) {
-        views.create_note.hide()
-        views.notes.show()
-        note_content.value = ''
-        write_note_btn.classList.remove('btn-green')
-        all_notes_btn.classList.add('btn-green')
-      })
-    } else {
-      NoteController.create(note).then(function(data) {
-        note.id = data.id
-        
-        views.notes.append_note(note)
-        views.create_note.hide()
-        views.notes.show()
-        note_content.value = ''
-        write_note_btn.classList.remove('btn-green')
-        all_notes_btn.classList.add('btn-green')
-      })
-    }
+        NoteController.update_note(note).then(function(data) {
+          views._router.goto_note_list()
+          note_content.value = ''
+        })
+      } else {
+        NoteController.create(note).then(function(data) {
+          note.id = data.id
+          views.notes.append_note(note)
+          views._router.goto_note_list()
+          note_content.value = ''
+        })
+      }
   })
-})()
+}

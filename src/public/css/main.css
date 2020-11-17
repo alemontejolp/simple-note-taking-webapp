@@ -92,3 +92,8 @@ textarea {
   /*border-radius: 5px;*/
   box-shadow: none;
 }
+
+.multiline-input {
+  padding: 15px;
+  box-sizing: border-box;
+}

@@ -40,6 +40,10 @@ let views = {
   
   create_note: {
     element: document.getElementById('note-create-view'),
+
+    buttons: {
+      save_note: document.getElementById('save-note-btn')
+    },
     
     hide: function() {
       this.element.style.display = 'none'
@@ -52,6 +56,11 @@ let views = {
 
   notes_section: {
     element: document.getElementById('notes-section'),
+    
+    buttons: {
+      all_notes: document.getElementById('all-notes-btn'),
+      write_note: document.getElementById('write-note-btn')
+    },
 
     hide: function() {
       this.element.style.display = 'none'
@@ -71,6 +80,42 @@ let views = {
 
     show: function() {
       this.element.style.display = 'inline'
+    }
+  },
+
+  _router: {
+    goto_login: function() {
+      views.create_note.hide()
+      views.notes.show()
+      views.notes_section.hide()
+      views.login.show()
+      views.signoff_btn.hide()
+    },
+
+    goto_note_list: function() {
+      views.login.hide()
+      views.notes_section.show()
+      views.notes.show()
+      views.create_note.hide()
+      views.signoff_btn.show()
+
+      views.notes_section.buttons.write_note
+        .classList.remove('btn-green')
+      views.notes_section.buttons.all_notes
+        .classList.add('btn-green')
+    },
+
+    goto_write_note: function() {
+      views.login.hide()
+      views.notes_section.show()
+      views.notes.hide()
+      views.create_note.show()
+      views.signoff_btn.show()
+
+      views.notes_section.buttons.write_note
+        .classList.add('btn-green')
+      views.notes_section.buttons.all_notes
+        .classList.remove('btn-green')
     }
   }
 }
